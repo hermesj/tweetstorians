@@ -19,6 +19,11 @@ import com.twitter.hbc.core.endpoint.StatusesSampleEndpoint;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
 
+/**
+ * Class to establish a twitter connection based on the given properties in the twitter.properties file (not part of the git project)
+ * @author jhermes
+ *
+ */
 public class TwitterConnection {
 	
 	
