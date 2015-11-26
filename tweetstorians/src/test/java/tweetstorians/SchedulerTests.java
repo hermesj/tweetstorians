@@ -25,14 +25,14 @@ public class SchedulerTests {
     	SimpleTrigger trigger = new SimpleTrigger();
     	trigger.setName("dummyTriggerName");
     	GregorianCalendar c = new GregorianCalendar();
-    	c.set(2015,11,24,14,40);
+    	c.set(2015,11,26,16,12);
     	GregorianCalendar d = new GregorianCalendar();
     	d.setTimeInMillis(System.currentTimeMillis());
     	System.out.println(d.getTime());
     	trigger.setStartTime(c.getTime());
     	//new Date(2015,11,24,13,29);
     	//new Date()
-    	
+    	c.set(2015,11,26,16,13);
     	trigger.setNextFireTime(c.getTime());
     	
     	

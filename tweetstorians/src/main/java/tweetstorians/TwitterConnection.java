@@ -3,6 +3,7 @@ package tweetstorians;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -67,8 +68,11 @@ public class TwitterConnection {
 		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 		twitter.setOAuthAccessToken(new AccessToken(token, tokenSecret));
-	       
-	    Status status = twitter.updateStatus("[Automatic tweet] Scheduled to 2015,11,24,14,40");
+	    
+		GregorianCalendar d = new GregorianCalendar();
+    	d.setTimeInMillis(System.currentTimeMillis());
+		
+	    Status status = twitter.updateStatus("[Automatic tweet] Scheduled to " + d.getTime());
 	    System.out.println("Successfully updated the status to [" + status.getText() + "].");
 	    
 	    
