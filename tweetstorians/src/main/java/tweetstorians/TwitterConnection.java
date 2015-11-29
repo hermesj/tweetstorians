@@ -1,6 +1,10 @@
 package tweetstorians;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.GregorianCalendar;
@@ -14,8 +18,6 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 
-import com.google.common.collect.Lists;
-import com.twitter.hbc.core.endpoint.StatusesSampleEndpoint;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
 
@@ -26,6 +28,10 @@ import com.twitter.hbc.httpclient.auth.OAuth1;
  *
  */
 public class TwitterConnection {
+	
+	public static int count = 0;
+	
+	public static String[] totweet;
 	
 	
 	
@@ -54,7 +60,20 @@ public class TwitterConnection {
 		return prop;
 	}
 	
-	
+	public String getToTweet(){
+		count++;
+		String toReturn = null;
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(new File("totweet")));
+			
+			for(int i=0; i<count; i++)
+				toReturn = in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return toReturn;
+	}
 
 	public void run() throws InterruptedException, TwitterException {
 		
@@ -65,7 +84,7 @@ public class TwitterConnection {
 		String token = prop.getProperty("token");
 		String tokenSecret = prop.getProperty("tokenSecret");
 		// Create an appropriately sized blocking queue
-		BlockingQueue<String> queue = new LinkedBlockingQueue<String>(10000);
+		//BlockingQueue<String> queue = new LinkedBlockingQueue<String>(10000);
 
 		
 		Authentication auth = new OAuth1(consumerKey, consumerSecret, token,
@@ -78,7 +97,7 @@ public class TwitterConnection {
 		GregorianCalendar d = new GregorianCalendar();
     	d.setTimeInMillis(System.currentTimeMillis());
 		
-	    Status status = twitter.updateStatus("[Automatic tweet] Scheduled to " + d.getTime());
+	    Status status = twitter.updateStatus(getToTweet());
 	    System.out.println("Successfully updated the status to [" + status.getText() + "].");
 	    
 	    
